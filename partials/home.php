@@ -1,3 +1,4 @@
+   <script src="js/angular-materialize.js"></script>
 <?php  
 session_start();   
   if(!isset($_SESSION['fname']) ){//Checking whether a user has logged in

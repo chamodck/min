@@ -21,7 +21,11 @@
               </li>
               <li><a href="php/logout.php">Logout</a>      
               </li>
+
+              <!-- Dropdown Trigger -->
+              <li>
               
+            </li>
               <?php
                 }
               ?>
