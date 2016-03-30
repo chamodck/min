@@ -22,19 +22,15 @@
               </li>
               <li><a href="#/contact">Contact</a>
               </li>
-              <li><a href="php/logout.php">Logout</a>      
-              </li>
+              
               <!-- Dropdown Trigger -->
               <li>
                 <!-- Dropdown Trigger -->
-                <a class='dropdown-button' href='#' data-activates='dropdown1'>Drop Me!</a>
-
+                <a class='dropdown-button' href='#' data-activates='dropdown1'><?=$_SESSION['fname']?></a>
                 <!-- Dropdown Structure -->
                 <ul id='dropdown1' class='dropdown-content'>
-                  <li><a href="#!">one</a></li>
-                  <li><a href="#!">two</a></li>
-                  <li class="divider"></li>
-                  <li><a href="#!">three</a></li>
+                  <li><a href="#!">Profile</a></li>
+                  <li><a href="php/logout.php">Logout</a></li>
                 </ul>
               </li>
               <?php

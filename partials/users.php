@@ -54,8 +54,7 @@
 
                         <div>
 
-                          <button class="right btn waves-effect waves-light" type="submit" 
-                          name="action">Submit</button>
+                          <button class="right btn waves-effect waves-light" type="submit" name="action">Submit</button>
 
                         </div>
 
