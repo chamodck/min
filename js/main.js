@@ -19,7 +19,7 @@ app.config(['$routeProvider', function ($routeProvider) {
     .when("/about", {templateUrl: "partials/about.html", controller: "PageCtrl"})
     .when("/faq", {templateUrl: "partials/faq.html", controller: "PageCtrl"})
     .when("/pricing", {templateUrl: "partials/pricing.html", controller: "PageCtrl"})
-    .when("/users", {templateUrl: "partials/users.html", controller: "UserCtrl"})
+    .when("/users", {templateUrl: "partials/users.php", controller: "UserCtrl"})
     .when("/contact", {templateUrl: "partials/contact.html", controller: "PageCtrl"})
     // Blog
     .when("/blog", {templateUrl: "partials/blog.html", controller: "BlogCtrl"})
@@ -84,31 +84,24 @@ app.controller('PageCtrl', function (/* $scope, $location, $http */) {
 });
 
 app.controller('UserCtrl', function ($scope, $window, $http) {
-  $scope.url = './php/signup.php'; // The url of our login
+  //$scope.url = './php/signup.php'; // The url of our login
   // The function that will be executed on button click (ng-click="login()")
- 
-  $scope.login = function() {
-  
-  // Create the http post request
-  // the data holds the keywords
-  // The request is a JSON request.
-  var x="0";
-  if(document.getElementById("test5").checked){
-    x="1";
-  }
+  $(document).ready(function() {
+    $('select').material_select();
+  });
+      
+});
 
-  $http.post($scope.url,{ "email" : document.getElementById("email").value ,"password":document.getElementById("password").value,"remember":x}).
-  success(function(data) {
-
-    if(data=="0"){
-      $scope.message ="The Email and Password you entered,don't match."; 
-
-    }else{
-      $window.location='';//refresh
-      //$scope.message =data; 
+app.controller('Ctrl', function ($scope, $window, $http) {
+    $scope.a="dgfd";
+    $('.dropdown-button').dropdown({
+      inDuration: 300,
+      outDuration: 225,
+      constrain_width: false, // Does not change width of dropdown to that of the activator
+      hover: true, // Activate on hover
+      gutter: 0, // Spacing from edge
+      belowOrigin: false, // Displays dropdown below the button
+      alignment: 'right' // Displays dropdown with edge aligned to the left of button
     }
-  }).error(function(data) {
-      $scope.message = "Request fail";    
-    });
-  };
+  );
 });

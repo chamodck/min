@@ -3,12 +3,15 @@
         <div class="container">
           <div class="nav-wrapper">
             <a href="" class="brand-logo">MIN</a>
+
             <ul class="right hide-on-med-and-down">
               <?php     
                 session_start();
                 if(isset($_SESSION['fname']) ){//Checking whether a user has logged in
                   //$fname=$_SESSION['fname'];
               ?>
+              <li><a href="#/users">{{a}}</a>
+              </li>
               <li><a href="#/users">Users</a>
               </li>
               <li><a href="#/pricing">Pricing Table</a>
@@ -21,11 +24,19 @@
               </li>
               <li><a href="php/logout.php">Logout</a>      
               </li>
-
               <!-- Dropdown Trigger -->
               <li>
-              
-            </li>
+                <!-- Dropdown Trigger -->
+                <a class='dropdown-button' href='#' data-activates='dropdown1'>Drop Me!</a>
+
+                <!-- Dropdown Structure -->
+                <ul id='dropdown1' class='dropdown-content'>
+                  <li><a href="#!">one</a></li>
+                  <li><a href="#!">two</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#!">three</a></li>
+                </ul>
+              </li>
               <?php
                 }
               ?>
