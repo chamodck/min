@@ -1,38 +1,24 @@
 <?php
 include "dbconfig.php";
 $_POST = json_decode(file_get_contents("php://input"), true);
-$fname=$_POST['first_name'];
-$lname=$_POST['last_name'];
+$fname=$_POST['fname'];
+$lname=$_POST['lname'];
 $email=$_POST['email'];
-$telephone=$POST['icon_telephone'];
+$telephone=$POST['telephone'];
+$type = $POST['usertype'];
 
 
-$sql="SELECT * FROM user WHERE email='$email' and password='$password'";
-$result=$conn->query($sql);
-if($result->num_rows==1){
-	$rows = mysqli_fetch_assoc($result);
-	session_start();
-	$_SESSION['email'] = $rows['email'];
-	$_SESSION['type']= $rows['type'];
-	$_SESSION['fname']=$rows['fname'];
+$sql = "INSERT INTO users (fname, lname, email,type,telephone)
+VALUES ('$fname', '$lname', '$email','$type',$telephone)";
 
-	if($_POST['remember']=="1"){
-		setcookie("email", $email, time() + (86400 * 30), "/");//86400=1day
-		setcookie("password",$_POST['password'], time() + (86400 * 30), "/");
-		
-	}else{
-		if(isset($_COOKIE["email"]) && isset($_COOKIE["password"])){
-			if($_COOKIE["email"]==$email && $_COOKIE["password"]==$_POST['password']){
-				setcookie("email", null,-1,"/");//delete cookies (-time)
-				setcookie("password", null, -1,"/");
-				
-			}
-		}
-	}
-
-	echo "1";
-}else{
-	echo "0";
+if ($conn->query($sql) === TRUE) {
+    echo "1";
+} else {
+    echo "0";
 }
+
+$conn->close();
+
+
 $conn->close();
 ?>
