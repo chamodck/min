@@ -9,7 +9,7 @@
                 if(isset($_SESSION['fname']) ){//Checking whether a user has logged in
                   //$fname=$_SESSION['fname'];
               ?>
-              <li><a href="#/services">Services</a>
+              <li><a href="#/users">Users</a>
               </li>
               <li><a href="#/pricing">Pricing Table</a>
               </li>
