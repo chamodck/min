@@ -83,12 +83,35 @@ app.controller('PageCtrl', function (/* $scope, $location, $http */) {
   })
 });
 
+//#######################This is user reg form part#############################
+
 app.controller('UserCtrl', function ($scope, $window, $http) {
-  //$scope.url = './php/signup.php'; // The url of our login
+ 
   // The function that will be executed on button click (ng-click="login()")
   $(document).ready(function() {
     $('select').material_select();
   });
+
+  //This is method of singup.
+  $scope.signup = function() {
+  
+//bellow name is text field name. WE call singp.php file in heare
+$scope.url = './php/signup.php';
+
+  $http.post($scope.url={ "email":$scope.email,"fname":$scope.fname,"lname":$scope.lname,"password":$scope.password,"usertype":$scope.usertype,"telephone":"viewer1"}).
+  success(function(data) {
+
+    if(data=="0"){
+      $scope.message ="User Registration is Faild"; 
+
+    }else{
+      $window.location='';//refresh
+      //$scope.message =data; 
+    }
+  }).error(function(data) {
+      $scope.message = "Request fail";    
+    });
+  };
       
 });
 
