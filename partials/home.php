@@ -1,4 +1,3 @@
-   <script src="js/angular-materialize.js"></script>
 <?php  
 session_start();   
   if(!isset($_SESSION['fname']) ){//Checking whether a user has logged in
@@ -21,7 +20,7 @@ session_start();
                 <div class="row">
                   <div class="input-field">
                     <i class="material-icons prefix">email</i>
-                    <input id="email" name="email" type="text" length="5" value="<?=$_COOKIE['email']?>" required/>
+                    <input id="email" name="email" type="text" value="<?=$_COOKIE['email']?>" autofocus required/>
                     <label class="active"  for="email">Email</label>
                     <span class="red-text" ng-show="loginForm.email.$touched && loginForm.email.$invalid">The Email is required.</span>
 
@@ -56,7 +55,7 @@ session_start();
                   <div class="row">
                   <div class="input-field">
                     <i class="material-icons prefix">email</i>
-                    <input id="email" name="email" ng-model="email" type="text" required/>
+                    <input id="email" name="email" ng-model="email" type="text" autofocus required/>
                     <label for="email">Email</label>
                     <span class="red-text" ng-show="loginForm.email.$touched && loginForm.email.$invalid">The Email is required.</span>
                     

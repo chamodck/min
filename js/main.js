@@ -85,34 +85,61 @@ app.controller('PageCtrl', function (/* $scope, $location, $http */) {
 
 //#######################This is user reg form part#############################
 
-app.controller('UserCtrl', function ($scope, $window, $http) {
- 
-  // The function that will be executed on button click (ng-click="login()")
-  $(document).ready(function() {
-    $('select').material_select();
-  });
+app.controller('UserCtrl', function ($scope,$location, $http) {
+   $(document).ready(function() {
+    $('select').material_select();  
+    $('ul.tabs').tabs();
 
+    $scope.url = './php/getUsers.php';//get users for load user table
+      $http.get($scope.url).
+      success(function(data) {
+        $scope.users=data.table;
+
+      }).error(function(data) {
+        $scope.tableState="Request fail.";
+      });
+  });
+   setInterval(loadTable, 3000);
+
+    function loadTable() {
+      $scope.url = './php/getUsers.php';//get users for load user table
+      $http.get($scope.url).
+      success(function(data) {
+        $scope.users=data.table;
+
+      }).error(function(data) {
+        $scope.tableState="Request fail.";
+      });
+    }
   //This is method of singup.
   $scope.signup = function() {
-  
-//bellow name is text field name. WE call singp.php file in heare
-$scope.url = './php/signup.php';
+  	$scope.url = './php/checkEmail.php';
+    $http.post($scope.url,{ "email":$scope.email}).
+    success(function(data) {
+    
+      if(data=="0"){
+        $scope.emailError ="Email already exist."; 
 
-  $http.post($scope.url={ "email":$scope.email,"fname":$scope.fname,"lname":$scope.lname,"password":$scope.password,"usertype":$scope.usertype,"telephone":"viewer1"}).
-  success(function(data) {
+      }else{
+          $scope.url = './php/signup.php';
+          $http.post($scope.url,{ "email":$scope.email,"fname":$scope.fname,"lname":$scope.lname,"password":$scope.password,"usertype":document.getElementById("usertype").value,"telephone":$scope.telephone}).
+          success(function(data) {
+          
+            if(data=="0"){
+              $scope.message ="User Registration is Failed"; 
 
-    if(data=="0"){
-      $scope.message ="User Registration is Faild"; 
-
-    }else{
-      $window.location='';//refresh
-      //$scope.message =data; 
-    }
-  }).error(function(data) {
-      $scope.message = "Request fail";    
+            }else{
+              $scope.message ="OK";
+            }
+          }).error(function(data) {
+              $scope.message = "Request fail..";    
+            });
+      }
+    }).error(function(data) {
+      $scope.message = "Request fail.";    
     });
+//bellow name is text field name. WE call singp.php file in heare
   };
-      
 });
 
 app.controller('Ctrl', function ($scope, $window, $http) {
