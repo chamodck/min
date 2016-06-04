@@ -1,9 +1,9 @@
 <?php
 
-$servername = 'localhost';
-$username = 'root';
-$password = '';
-$dbname = 'project';
+$servername = 'localhost';//mysql.hostinger.in
+$username = 'root';//u249740641_min
+$password = '';//minproject
+$dbname = 'project';//u249740641_min
 
 
 // Create connection

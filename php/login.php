@@ -15,13 +15,11 @@ if($result->num_rows==1){
 
 	if($_POST['remember']=="1"){
 		setcookie("email", $email, time() + (86400 * 30), "/");//86400=1day
-		setcookie("password",$_POST['password'], time() + (86400 * 30), "/");
 		
 	}else{
 		if(isset($_COOKIE["email"]) && isset($_COOKIE["password"])){
 			if($_COOKIE["email"]==$email && $_COOKIE["password"]==$_POST['password']){
 				setcookie("email", null,-1,"/");//delete cookies (-time)
-				setcookie("password", null, -1,"/");
 				
 			}
 		}

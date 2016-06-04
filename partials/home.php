@@ -29,8 +29,8 @@ session_start();
                 <div class="row">
                   <div class="input-field">
                     <i class="material-icons prefix">vpn_key</i>
-                    <input id="password" name="password" type="password" value="<?=$_COOKIE['password']?>" required/>
-                    <label class="active" for="password">Password</label>
+                    <input id="password" name="password" type="password" required/>
+                    <label for="password">Password</label>
                     <span class="red-text" ng-show="loginForm.password.$touched && loginForm.password.$invalid">The Password is required.</span>
                     
                   </div>
@@ -49,6 +49,8 @@ session_start();
                     </div>
                   </div>
                 </div>
+
+
                 <?php
                   }else{
                 ?>
@@ -89,7 +91,9 @@ session_start();
                   }
                 ?>
               </form>
-              
+              <div class="row">
+                  <a href="#/forgot_password">Forgot Password</a>
+                </div>
             </div>
             </div>
       </div>
@@ -99,7 +103,7 @@ session_start();
 }
 else{
 ?>
-<div> home page</div>
+<div><h1>home page</h1></div>
  <!-- Dropdown Trigger -->
 
 <?php

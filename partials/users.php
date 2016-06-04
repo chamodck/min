@@ -26,7 +26,7 @@
             <td>{{user.lname}}</td>
             <td>{{user.email}}</td>
             <td>{{user.type}}</td>
-            <td>{{user.telephone}}</td>
+            <td>{{user.contact_no}}</td>
           </tr>
         </tbody>
       </table>
@@ -84,8 +84,8 @@
                             <div class="row col s12 l6">
                                 <div class="input-field col s12"> 
                                     <select ng-model="usertype" id="usertype">
-                                      <option >Viewer1</option>
-                                      <option >Viewer2</option>
+                                      <option >Viewer</option>
+                                      <option >Scientific Observer</option>
                                       <option >Admin</option>
                                     </select>
                                     <label>User Type</label>
@@ -97,7 +97,8 @@
                           <button class="right btn waves-effect waves-light" type="submit" name="action">Submit</button>
 
                         </div>
-                        
+                        <span class="green-text">{{success}}</span>
+                        <span class="red-text">{{fail}}</span>
                     </form>
                     
                 </div>

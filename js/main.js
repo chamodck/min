@@ -11,7 +11,7 @@ var app = angular.module('tutorialWebApp', ['ngRoute']);
 /**
  * Configure the Routes
  */
-app.config(['$routeProvider', function ($routeProvider) {
+app.config(['$routeProvider', function ($routeProvider, $routeParams) {
   $routeProvider
     // Home
     .when("/", {templateUrl: "partials/home.php", controller: "homeCtrl"})
@@ -22,10 +22,14 @@ app.config(['$routeProvider', function ($routeProvider) {
     .when("/users", {templateUrl: "partials/users.php", controller: "UserCtrl"})
     .when("/contact", {templateUrl: "partials/contact.html", controller: "PageCtrl"})
     // Blog
+    .when("/change_password/:user_id/:code", {templateUrl: "partials/password_change.html", controller: "passwordChangeCtrl"})
     .when("/blog", {templateUrl: "partials/blog.html", controller: "BlogCtrl"})
     .when("/blog/post", {templateUrl: "partials/blog_item.html", controller: "BlogCtrl"})
+    .when("/welcome", {templateUrl: "partials/welcome.html", controller: "WelcomeCtrl"})
+    .when("/404", {templateUrl: "partials/404.html", controller: "PageCtrl"})
+    .when("/forgot_password", {templateUrl: "partials/forgot_password.html", controller: "ForgotPasswordCtrl"});
     // else 404
-    .otherwise("/404", {templateUrl: "partials/404.html", controller: "PageCtrl"});
+    //.otherwise("/404", {templateUrl: "partials/404.html", controller: "PageCtrl"});
 }]);
 
 //controls the home
@@ -113,6 +117,8 @@ app.controller('UserCtrl', function ($scope,$location, $http) {
     }
   //This is method of singup.
   $scope.signup = function() {
+    $scope.fail =""; 
+    $scope.success ="";
   	$scope.url = './php/checkEmail.php';
     $http.post($scope.url,{ "email":$scope.email}).
     success(function(data) {
@@ -126,24 +132,28 @@ app.controller('UserCtrl', function ($scope,$location, $http) {
           success(function(data) {
           
             if(data=="0"){
-              $scope.message ="User Registration is Failed"; 
+              $scope.fail ="User Registration failed"; 
+
+            }else if(data=="1"){
+              $scope.success ="User Registration successful";
 
             }else{
-              $scope.message ="OK";
+              $scope.success ="User Registration successful,Email send failed(Send it manualy)";
             }
           }).error(function(data) {
-              $scope.message = "Request fail..";    
+              $scope.fail = "Request fail..";    
             });
       }
     }).error(function(data) {
-      $scope.message = "Request fail.";    
+      $scope.fail = "Request fail.";    
     });
 //bellow name is text field name. WE call singp.php file in heare
   };
+  
 });
 
 app.controller('Ctrl', function ($scope, $window, $http) {
-    $scope.a="dgfd";
+    //$scope.a="dgfd";
     $('.dropdown-button').dropdown({
       inDuration: 300,
       outDuration: 225,
@@ -154,4 +164,95 @@ app.controller('Ctrl', function ($scope, $window, $http) {
       alignment: 'right' // Displays dropdown with edge aligned to the left of button
     }
   );
+});
+
+app.controller('passwordChangeCtrl', function($scope,$routeParams,$http,$location,$window) {
+  
+  var user_id=$routeParams.user_id;
+  var type="",email="",fname="";
+
+  start();
+
+  function start(){
+    if( $routeParams.code != ""){
+      $scope.url='./php/get_user_for_id.php';
+      $http.post($scope.url,{ "id" : $routeParams.user_id }).
+      success(function(data) {
+        if(data.password_change_code!=$routeParams.code){
+          $location.path('/404');
+          //$window.location='#/404';
+        }else{
+          //set parameters values,
+          type=data.type;
+          email=data.email;
+          fname=data.fname;
+
+          $scope.url='./php/remove_password_code.php';
+          $http.post($scope.url,{ "id" : $routeParams.user_id }).
+          success(function(data) {
+            if(data=="0"){
+               $location.path('/404');
+            }
+          }).error(function(data) {
+             $location.path('/404');
+          });
+        }
+      }).error(function(data) {
+        $location.path('/404');
+      });
+    }else{
+      $location.path('/404');
+    }
+  }
+  
+  $scope.changePassword=function(){
+    $scope.message='';
+    if($scope.new_password==$scope.new_password_again){
+      $scope.url='./php/password_change.php';
+          $http.post($scope.url,{ "id" : $routeParams.user_id,"password":$scope.new_password,"type":type,"email":email,"fname":fname}).
+          success(function(data) {
+            if(data=="1"){
+              if(type =='Scientific Observer'){
+                $location.path('/welcome');
+                //$scope.message=1;
+              }else{
+                $window.location='#/';
+                //$scope.message=2;
+              }
+            }else{
+               $location.path('/404');
+               //$scope.message=3;
+            }
+          }).error(function(data) {
+            //$scope.message=4;
+             $location.path('/404');
+          });
+    }else{
+      $scope.message='Passwords do not match';
+    }
+  }
+
+});
+
+app.controller('ForgotPasswordCtrl', function ($scope,$location,$http,$location) {
+  $scope.forgotPassword=function(){
+    $scope.success="";
+
+    $scope.fail="";
+    $scope.url='./php/forgot_password.php';
+      $http.post($scope.url,{ "email" : $scope.email}).
+      success(function(data) {
+        if(data=="0"){
+           $scope.fail="There is no account for this email.";
+        }else if(data=="1"){
+          $scope.success="Password change link was sent to your email.";
+        }else if(data=="2"){
+          $scope.fail="Email send failed.";
+        }else{
+          $scope.fail="Request failed,Try again.";
+        }
+        }).error(function(data) {
+           $location.path('/404');
+        });
+  }
 });

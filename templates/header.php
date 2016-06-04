@@ -2,27 +2,21 @@
       <nav>
         <div class="container">
           <div class="nav-wrapper">
-            <a href="" class="brand-logo">MIN</a>
+            <a href="http://localhost/min/#/" class="brand-logo">MIN</a>
 
             <ul class="right hide-on-med-and-down">
               <?php     
                 session_start();
-                if(isset($_SESSION['fname']) ){//Checking whether a user has logged in
+                if(isset($_SESSION['fname'])){//Checking whether a user has logged in
                   //$fname=$_SESSION['fname'];
-              ?>
-              <li><a href="#/users">{{a}}</a>
-              </li>
-              <li><a href="#/users">Users</a>
-              </li>
-              <li><a href="#/pricing">Pricing Table</a>
-              </li>
-              <li><a href="#/about">About</a>
-              </li>
-              <li><a href="#/faq">FAQ</a>
-              </li>
-              <li><a href="#/contact">Contact</a>
-              </li>
               
+                  if($_SESSION['type']=="Admin"){
+              ?>
+                  <li><a href="#/users">Users</a>
+                  </li>
+              <?php
+                }
+              ?>
               <!-- Dropdown Trigger -->
               <li>
                 <!-- Dropdown Trigger -->
