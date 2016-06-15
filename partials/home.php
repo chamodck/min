@@ -3,17 +3,12 @@ session_start();
   if(!isset($_SESSION['fname']) ){//Checking whether a user has logged in
 ?>
 
-<div class="container" >
-<div class="row" >
-          <div class="col s12 l6 offset-l3 card-panel">
+<div class="container">
+  <div class="row">
+    <div class="card col s12 l6 offset-l3">
+        <div class="col s12 l10 offset-l1">
 
-            <div class="col s12 l10 offset-l1">
-              <div class="row">
-
-              <label ><h5>Login</h5></label>
-           
-              </div>
-              <form name="loginForm" method="POST" ng-submit="login()">
+          <form name="loginForm" method="POST" ng-submit="login()">
                 <?php
                   if(isset($_COOKIE["email"]) && isset($_COOKIE["password"])){
                 ?>
@@ -91,20 +86,46 @@ session_start();
                   }
                 ?>
               </form>
-              <div class="row">
-                  <a href="#/forgot_password">Forgot Password</a>
+
+        </div>
+        <div class="card-content">
+          <span class="card-title activator blue-text text-darken">Forgot Password ?</span>
+          
+        </div>
+        <div class="card-reveal">
+          <span class="card-title grey-text text-darken-4">Forgot Password<i class="material-icons right">close</i></span>
+              <form name="forgot_password" method="POST" ng-submit="forgotPassword()">
+                <div class="row col s12 l10">
+                  <div class="input-field">
+                    <i class="material-icons prefix">email</i>
+                    <input id="forgotemail" ng-model="forgotemail" name="forgotemail" type="email" required/>
+                    <label  for="forgotemail">Email</label>
+                    <span class="red-text" ng-show="forgot_password.forgotemail.$touched && forgot_password.forgotemail.$invalid">The Email is required.</span>
+                  </div>
                 </div>
-            </div>
-            </div>
+                
+                <div class="row col s12 l10">
+                  <div ng-show="fail" class="red-text">{{fail}}</div>
+                  <div ng-show="success" class="green-text">{{success}}</div>
+                </div>
+                <div class="row col s12 l10">
+                    <div class="right">
+                      <button class="btn waves-effect waves-light" type="submit" >Submit
+                      </button>
+                    </div>
+                </div>
+                
+              </form>
+        </div>
       </div>
+    </div>
+  </div>
 </div>
 
 <?php
 }
 else{
 ?>
-<div><h1>home page</h1></div>
- <!-- Dropdown Trigger -->
 
 <?php
 }

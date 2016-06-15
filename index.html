@@ -1,25 +1,43 @@
 <!DOCTYPE html>
-<html class="no-js"> <!--<![endif]-->
+<html class="no-js" ng-app="tutorialWebApp"> <!--<![endif]-->
 <head>
 
     <!-- Meta-Information -->
     <title>MIN</title>
     
     <!-- Vendor: Bootstrap Stylesheets http://getbootstrap.com --><!-- Our Website CSS Styles -->
-    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+    
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href='css/nprogress.css' rel='stylesheet' />
-    
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
     <!-- Our Website Javascripts -->
+
+      
+    <!--<script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>-->
+
+</head>
+<body >
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+     <!-- <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+      <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+      <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+      <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>-->
+      
     
-    <script src="js/angular.min.js"></script>
+    
     <script src="js/angular-route.min.js"></script>
- 
+    <script src="http://code.angularjs.org/1.4.8/angular-resource.js"></script>
+
     <script src='js/nprogress.js'></script>
     <script src="js/main.js"></script>
 
-</head>
-<body ng-app="tutorialWebApp">
+    <script src='js/lodash.min.js'></script>
+    <script src='js/angular-simple-logger.min.js'></script>
+    <script src='js/angular-google-maps.min.js'></script>
+    <script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
+
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.0.js"></script>  
 <!--[if lt IE 7]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
@@ -31,10 +49,10 @@
 <div ng-view></div>
 <div ng-include='"templates/footer.php"'></div>
 
-
 <!-- Vendor: Javascripts -->
 <script src="js/jquery-2.1.4.min.js"></script>
 <script src="js/materialize.min.js"></script>
+
 
 <!-- Vendor: Angular, followed by our custom Javascripts -->
   <script>

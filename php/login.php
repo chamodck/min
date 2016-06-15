@@ -4,7 +4,7 @@ $_POST = json_decode(file_get_contents("php://input"), true);
 $email=$_POST['email'];
 $password=md5($_POST['password']);
 
-$sql="SELECT * FROM user WHERE email='$email' and password='$password'";
+$sql="SELECT * FROM user WHERE email='$email' and password='$password' and type !='Scientific Observer'";
 $result=$conn->query($sql);
 if($result->num_rows==1){
 	$rows = mysqli_fetch_assoc($result);
