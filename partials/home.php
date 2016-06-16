@@ -3,11 +3,11 @@ session_start();
   if(!isset($_SESSION['fname']) ){//Checking whether a user has logged in
 ?>
 
-<div class="container">
+<div class="container" style="height:541px">
   <div class="row">
     <div class="card col s12 l6 offset-l3">
         <div class="col s12 l10 offset-l1">
-
+          <h4 class="light grey-text text-darken-3">Login</h4><br>
           <form name="loginForm" method="POST" ng-submit="login()">
                 <?php
                   if(isset($_COOKIE["email"]) && isset($_COOKIE["password"])){
@@ -89,11 +89,12 @@ session_start();
 
         </div>
         <div class="card-content">
-          <span class="card-title activator blue-text text-darken">Forgot Password ?</span>
-          
+          <span style="cursor:pointer" class="activator blue-text text-darken">Forgot Password ?</span>
         </div>
-        <div class="card-reveal">
+
+        <div class="card-reveal"><br><br><br>
           <span class="card-title grey-text text-darken-4">Forgot Password<i class="material-icons right">close</i></span>
+              <br>
               <form name="forgot_password" method="POST" ng-submit="forgotPassword()">
                 <div class="row col s12 l10">
                   <div class="input-field">

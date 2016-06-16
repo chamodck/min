@@ -262,7 +262,7 @@ app.controller('UserCtrl', function ($scope,$location, $http) {
       in_duration: 300, // Transition in duration
       out_duration: 200, // Transition out duration
     });
-    $scope.names = ["Emil", "Tobias", "Linus"];
+    //$scope.names = ["Emil", "Tobias", "Linus"];
     loadTable();
   });
    
@@ -334,7 +334,9 @@ app.controller('UserCtrl', function ($scope,$location, $http) {
 //bellow name is text field name. WE call singp.php file in heare
   };
 
-  $scope.edit=function(id){
+  $scope.editModal=function(id){
+    //$scope.fail1 =""; 
+    //$scope.success1 ="";
     $scope.url='./php/get_user_for_id.php';
       $http.post($scope.url,{ "id" : id }).
       success(function(data) {
@@ -342,12 +344,31 @@ app.controller('UserCtrl', function ($scope,$location, $http) {
         $scope.editlname=data.lname;
         $scope.editemail=data.email;
         $scope.editcontact=data.contact_no;
-        $scope.usertype=data.type;
+        //$scope.usertype="gfdg";
         $scope.hiddenid=id;
-        
+        document.getElementById('editusertype').value = data.type;
+        console.log(data.type);
         $('#userEditModal').openModal();
       }).error(function(data) {
         $location.path('/404');
+      });
+  }
+
+  $scope.updateUser=function(){
+    $scope.fail1 =""; 
+    $scope.success1 ="";
+
+    $scope.url='./php/updateUser.php';
+      $http.post($scope.url,{ "id" : $scope.hiddenid,"fname":$scope.editfname,"lname":$scope.editlname,"usertype":document.getElementById("editusertype").value,"telephone":$scope.editcontact}).
+      success(function(data) {
+        if(data=="1"){
+          $scope.success1 ="Successfully updated";
+        }else{
+          $scope.fail1 ="Request Failed,Try again";
+        }
+        //$('#userEditModal').openModal();
+      }).error(function(data) {
+        $scope.fail1 ="Request Failed,Try again";
       });
   }
   
@@ -440,6 +461,142 @@ app.controller('ForgotPasswordCtrl', function ($scope,$location,$http) {
 });
 
 app.controller('aboutCtrl', function ($scope) {
-  console.log('df');
+  var map;
+  var qtrArray = [];
+  var linesArray = [];
+  var Startlatlng;
+  var llOffset = 1;//0.0666666666666667;
+
+  var drawGridBox = false;
+  var gridline;
+  var polylinesquare;
+  var latPolylines = [];
+  var lngPolylines = [];
+  var bounds = new google.maps.LatLngBounds();
+  init();
+  function init(){
+  map = new google.maps.Map(document.getElementById('gridmap'), {
+        center: new google.maps.LatLng(8, 81),
+        zoom: 7,
+        streetViewControl: true,
+        mapTypeId: google.maps.MapTypeId.TERRAIN,
+        scaleControl: true
+    });
+
+    var oLat = 8;
+    var oLon = 81;
+
+    var gridlocator = [new google.maps.LatLng(oLat, oLon)];
+
+    google.maps.event.addListener(map, 'click', function (event) {
+
+
+        /*                  google.maps.event.addListener(map, 'bounds_changed', DrawLine); */
+
+        // var eventPos = mArray.getPosition();
+
+        createGridBox(event.latLng);
+    });
+    DrawGridOn();
+    google.maps.event.addListener(map, 'bounds_changed', function () {
+        createGridLines(map.getBounds());
+    });
+  }
+  function DrawGridOn() {
+      drawGridBox = true;
+  }
+
+  function DrawGridOff() {
+      drawGridBox = false;
+  }
+
+
+  function ClearLastGrid() {
+      polyline.setMap(null);
+  }
+
+  function createGridLines(bounds) {
+      for (var i=0; i< latPolylines.length; i++) {
+              latPolylines[i].setMap(null);
+      }
+      latPolylines = [];
+      for (var i=0; i< lngPolylines.length; i++) {
+              lngPolylines[i].setMap(null);
+      }
+      lngPolylines = [];
+      if (map.getZoom() <= 6) return; 
+      var north = bounds.getNorthEast().lat();
+      var east = bounds.getNorthEast().lng();
+      var south = bounds.getSouthWest().lat();
+      var west = bounds.getSouthWest().lng();
+
+      // define the size of the grid
+      var topLat = Math.ceil(north / llOffset) * llOffset;
+      var rightLong = Math.ceil(east / llOffset) * llOffset;
+
+      var bottomLat = Math.floor(south / llOffset) * llOffset;
+      var leftLong = Math.floor(west / llOffset) * llOffset;
+
+      for (var latitude = bottomLat; latitude <= topLat; latitude += llOffset) {
+          // lines of latitude
+          latPolylines.push(new google.maps.Polyline({
+              path: [
+              new google.maps.LatLng(latitude, leftLong),
+              new google.maps.LatLng(latitude, rightLong)],
+              map: map,
+              geodesic: true,
+              strokeColor: '#0000FF',
+              strokeOpacity: 0.5,
+              strokeWeight: 1
+          }));
+      }
+      for (var longitude = leftLong; longitude <= rightLong; longitude += llOffset) {
+          // lines of longitude
+          lngPolylines.push(new google.maps.Polyline({
+              path: [
+              new google.maps.LatLng(topLat, longitude),
+              new google.maps.LatLng(bottomLat, longitude)],
+              map: map,
+              geodesic: true,
+              strokeColor: '#0000FF',
+              strokeOpacity: 0.5,
+              strokeWeight: 1
+          }));
+      }
+  }
+
+  function createGridBox(point) {
+      // Square limits
+      var bottomLeftLat = Math.floor(point.lat() / llOffset) * llOffset;
+      var bottomLeftLong = Math.floor(point.lng() / llOffset) * llOffset;
+
+      var i;
+
+      var gridLineSquare = [
+      new google.maps.LatLng(bottomLeftLat, bottomLeftLong), //lwr left
+      new google.maps.LatLng(bottomLeftLat, bottomLeftLong + llOffset), //lwr right
+      new google.maps.LatLng(bottomLeftLat + llOffset, bottomLeftLong + llOffset), //upr right
+      new google.maps.LatLng(bottomLeftLat + llOffset, bottomLeftLong),
+      new google.maps.LatLng(bottomLeftLat, bottomLeftLong)];
+
+
+      for (i = 0; i < gridLineSquare.length; i++) {
+          bounds.extend(gridLineSquare[i]);
+      }
+
+      // external.getData(event.latLng);
+      if (drawGridBox == true) {
+          polyline = new google.maps.Polyline({
+              path: gridLineSquare,
+              geodesic: true,
+              strokeColor: '#0000FF',
+              strokeOpacity: 0.5,
+              strokeWeight: 1
+          });
+
+          polyline.setMap(map);
+          qtrArray.push(polyline);
+      }
+  }
   
 });
