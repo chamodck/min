@@ -4,60 +4,69 @@
 		          <tr>
 		              <th data-field="id">
 		              	Trip ID
-		              	<div class="input-field">
-				          <input id="icon_prefix" ng-model="id" type="text" placeholder="f i l t e r">
-				          
-				        </div>
-		              	
 		              </th>
 		              <th data-field="name">
 		              	Start Date
-		              	<input ng-model='from' type="date" placeholder="f i l t e r" class="datepicker">
-		              	
 		              </th>
 		              <th data-field="price">
 		              	End Date
-		              	<input ng-model='from' type="date" placeholder="f i l t e r" class="datepicker">
-		              	
 		              </th>
 		              <th data-field="price">
 		              	No: of days fish
-		              	<div class="input-field">
-				          <input id="icon_prefix" type="text" ng-model="days" placeholder="f i l t e r" >
-				          
-				        </div>
-		              	
 		              </th>
 		              <th data-field="price">
 		              	Vessel Name
-		              	<div class="input-field">
-				          <input id="icon_prefix" type="text" ng-model="vessel" placeholder="f i l t e r" >
-				          
-				        </div>
-		              	
 		              </th>
 		              <th data-field="price">
 		              	Weight (Kg)
-		              	<div class="input-field">
-				          <input id="icon_prefix"  type="text" ng-model="weight" placeholder="f i l t e r" >
-				          
-				        </div>
-		              	
 		              </th>
 		              <th data-field="price">
 		              	Scientific Observer
-		              	<div class="input-field">
-				          <input id="icon_prefix" type="text" ng-model="observer" placeholder="f i l t e r" >
+		              </th>
+		          </tr>
+		          <tr>
+		          	<td>
+		          		<div class="input-field">
+				          <input  ng-model="id" type="text" placeholder="filter">
 				          
 				        </div>
-		              	
-		              </th>
+		          	</td>
+		          	<td>
+		          		<input ng-model='from' id="tripFrom" type="date" placeholder="filter" class="datepicker">
+		          	</td>
+		          	<td>
+		          		<input ng-model='from' id="tripTo" type="date" placeholder="filter" class="datepicker">
+		          	</td>
+		          	<td>
+		          		<div class="input-field">
+				          <input  type="text" ng-model="days" placeholder="filter" >
+				          
+				        </div>
+		          	</td>
+		          	<td>
+		          		<div class="input-field">
+				          <input  type="text" ng-model="vessel" placeholder="filter" >
+				          
+				        </div>
+		          	</td>
+		          	<td>
+		          		<div class="input-field">
+				          <input   type="text" ng-model="weight" placeholder="filter" >
+				          
+				        </div>
+		          	</td>
+		          	<td>
+		          		<div class="input-field">
+				          <input  type="text" ng-model="observer" placeholder="filter" >
+				          
+				        </div>
+		          	</td>
 		          </tr>
 		        </thead>
 
 		        <tbody>
 		        	
-			          <tr ng-repeat="trip in trips | orderBy:sortType:sortReverse | filter:paginate | filter:{id:id} | filter:{name:vessel} | filter:{fname:observer}">
+			          <tr ng-repeat="trip in trips | orderBy:sortType:sortReverse | filter:paginate | filter:{id:id} | filter:{name:vessel} | filter:{fname:observer} ">
 			          	
 			            <td>{{trip.id}}</td></a>
 			            <td>{{trip.startdate}}</td>
@@ -67,7 +76,7 @@
 			            <td></td>
 			            <td>{{trip.fname}} {{trip.lname}}</td>
 			            
-			            <td><a class="btn-floating waves-effect waves-light" title="More" ng-click="loadTrip(trip.id)"><i class="material-icons">play_arrow</i></a></td>
+			            <td><a class="btn-floating waves-effect waves-light" title="More" href="#/trip/{{trip.id}}"><i class="material-icons">play_arrow</i></a></td>
 			          </tr>
 		      		
 		        </tbody>

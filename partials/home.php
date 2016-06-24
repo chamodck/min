@@ -2,10 +2,10 @@
 session_start();   
   if(!isset($_SESSION['fname']) ){//Checking whether a user has logged in
 ?>
-
-<div class="container" style="height:541px">
-  <div class="row">
-    <div class="card col s12 l6 offset-l3">
+<div style="background-image: url('img/bgweb.png');height:560px">
+<div class="container" ><br><br>
+  <div class="row" >
+    <div class="card col s12 l6 offset-l3 " >
         <div class="col s12 l10 offset-l1">
           <h4 class="light grey-text text-darken-3">Login</h4><br>
           <form name="loginForm" method="POST" ng-submit="login()">
@@ -122,11 +122,101 @@ session_start();
     </div>
   </div>
 </div>
+</div>
 
 <?php
 }
 else{
 ?>
+<div class="row ">
+      <div class="col s12 m3 blue lighten-4" style="height:541px">
+        <br>
+    
+      <input name="group1" type="radio" id="test1" checked />
+      <label for="test1">Time Period</label>
+    
+      <input name="group1" type="radio" id="test2" />
+      <label for="test2">Custom Time Period</label>
+    
+    
+  
+        <div class="row" id="time">
+          <div class="input-field col s12"> 
+              <select id="timetype">
+                <option >All</option>
+                <option>This Year</option>
+                <option>Last Year</option>
+                <option >This Month</option>
+                <option >Last Month</option>
+                <option >This Week</option>
+                <option >Last Week</option>
+              </select>
+              
+          </div>
+        </div>
+        
+        <div class="row" id="customtime">
+          <div class="input-field col s12 m6"> 
+              <input id="dateFrom" ng-model='from' type="date" class="datepicker">
+              <label for="dateFrom">FROM</label>
+          </div>
+          <div class="input-field col s12 m6">
+              <input id="dateTo" ng-model='from' type="date" class="datepicker">
+              <label for="dateTo">TO</label>
+          </div>
+        </div>
+
+        <div class="row" id="bycatchsummery">
+            <div class="card">
+              <div class="card-content" style="overflow-y: scroll;height:385px">
+                <h5 >By Catch Summery</h5><br>
+                <div style="font-size:120%"><i class="fa fa-map-marker"></i> Lat : <span class="teal-text text-lighten-1">{{latfloor}}&#176 {{latfloor+1}}&#176</span> and Lon : <span class="teal-text text-lighten-1">{{lonfloor}}&#176 {{lonfloor+1}}&#176</span></div>
+                <div style="font-size:120%">Total By Catches : <span style="font-size:150%" class="blue-text">{{total}}</span></div>
+
+                <ul class="collection" ng-repeat="trip in trips">
+                  <li>
+                    <div class="col s12 m8" style="height:100px">
+                    <img src="img/bycatch/{{trip.tripid}}/{{trip.image}}.jpg" style="height:100%" alt="Image not found"  class="responsive-img">
+                    </div>
+                    <span class="title teal-text text-lighten-1">{{trip.fishname}}</span>
+                    <p> <i class="fa fa-calendar"></i> {{trip.year}}-{{trip.month}}-{{trip.day}}<br>
+                    <i class="fa fa-clock-o"></i> {{trip.hour}} : {{trip.minute}}<br>
+                    </p>
+                    <a href="#/trip/{{trip.tripid}}" title"Trip informations"><i class="fa fa-ship"></i> Trip</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+        </div>
+      </div><!--left container end-->
+      <div class="col s12 m6">
+          <div id="gridmap" style="width:auto;height:541px;"></div>
+      </div><!--map container end-->
+       <div class="col s12 m3 grey lighten-4" >
+        <div style="font-size:120%"><i class="fa fa-calendar"></i><span style="font-size:120%" class="blue-text"> {{timeperiod}}</span></div>
+        <div style="overflow-y: scroll;height:508px">
+        <table class="bordered centered ">
+          <thead>
+            <tr>
+                <th data-field="id">Area (1&#176 * 1&#176 Square)</th>
+                <th data-field="name">No. of By Catches</th>
+            </tr>
+          </thead>
+
+          <tbody ng-repeat="count in counts">
+            <tr>
+              <td>Lat : {{count.latt}}&#176 {{count.latt+1}}&#176 Lon : {{count.lonn}}&#176 {{count.lonn+1}}&#176</td>
+              <td>{{count.count}}</td>
+            </tr>
+            
+          </tbody>
+            <tr>
+              <td><b>Total</b></td>
+              <td><b>{{totalcount}}</b></td>
+            </tr>
+        </table>
+      </div><!--big grid end-->
+</div>
 
 <?php
 }

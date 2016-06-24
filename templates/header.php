@@ -30,6 +30,10 @@
                 <a href="#/about">Map Test</a>
               </li>
               <li>
+                <a href="#/fishSpread">Fishes Spread</a>
+              </li>
+
+              <li>
                 <!-- Dropdown Trigger -->
                 <a class='dropdown-button' href='#' data-activates='dropdown1'><?=$_SESSION['fname']?></a>
                 <!-- Dropdown Structure -->

@@ -17,8 +17,8 @@ if($result->num_rows==1){
 		setcookie("email", $email, time() + (86400 * 30), "/");//86400=1day
 		
 	}else{
-		if(isset($_COOKIE["email"]) && isset($_COOKIE["password"])){
-			if($_COOKIE["email"]==$email && $_COOKIE["password"]==$_POST['password']){
+		if(isset($_COOKIE["email"])){
+			if($_COOKIE["email"]==$email){
 				setcookie("email", null,-1,"/");//delete cookies (-time)
 				
 			}

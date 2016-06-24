@@ -1,0 +1,24 @@
+$scope.login = function() {
+  $scope.url = './php/login.php';
+  // Create the http post request
+  // the data holds the keywords
+  // The request is a JSON request.
+  var x="0";
+  if(document.getElementById("test5").checked){
+    x="1";
+  }
+
+  $http.post($scope.url,{ "email" : document.getElementById("email").value ,"password":document.getElementById("password").value,"remember":x}).
+  success(function(data) {
+
+    if(data=="0"){
+      $scope.message ="The Email and Password you entered,don't match."; 
+
+    }else{
+      $window.location='';//refresh
+      //$scope.message =data; 
+    }
+  }).error(function(data) {
+      $scope.message = "Request fail";    
+    });
+  };

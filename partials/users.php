@@ -121,10 +121,10 @@
                             <div class="row col s12 l6">
                                  <div class="input-field">
                                 <i class="material-icons prefix">person</i>
-                                <input name="fname" placeholder="First Name" ng-model="editfname" type="text" class="validate" pattern="[a-zA-Z]*" required>
+                                <input name="editfname" placeholder="First Name" ng-model="editfname" type="text" class="validate" pattern="[a-zA-Z]*" required>
                                 
-                                <span class="red-text" ng-show="signupForm.editfname.$touched && signupForm.editfname.$error.required">The First Name is required.</span>
-                                <span class="red-text" ng-show="signupForm.editfname.$touched && signupForm.editfname.$error.pattern">Use Letters.</span>
+                                <span class="red-text" ng-show="editForm.editfname.$touched && editForm.editfname.$error.required">The First Name is required.</span>
+                                <span class="red-text" ng-show="editForm.editfname.$touched && editForm.editfname.$error.pattern">Use Letters.</span>
                                 
                                 </div>
                             </div>
@@ -132,26 +132,26 @@
                             <div class="row col s12 l6">
                                 <div class="input-field">
                                     <i class="material-icons prefix">person</i>
-                                    <input name="lname" placeholder="Last Name" ng-model="editlname" type="text" class="validate" pattern="[a-zA-Z]*" required>
-                                    <span class="red-text" ng-show="signupForm.editlname.$touched && signupForm.editlname.$error.required">The Last Name is required.</span>
-                                    <span class="red-text" ng-show="signupForm.editlname.$touched && signupForm.editlname.$error.pattern">Use Letters.</span>
+                                    <input name="editlname" placeholder="Last Name" ng-model="editlname" type="text" class="validate" pattern="[a-zA-Z]*" required>
+                                    <span class="red-text" ng-show="editForm.editlname.$touched && editForm.editlname.$error.required">The Last Name is required.</span>
+                                    <span class="red-text" ng-show="editForm.editlname.$touched && editForm.editlname.$error.pattern">Use Letters.</span>
                                 </div>
                             </div>
 
                             <div class="row col s12 l12">
                                 <div class="input-field ">
                                     <i class="material-icons prefix">email</i>
-                                    <input name="email" placeholder="Email" ng-model="editemail" type="email" class="validate" disabled  required>
+                                    <input name="editemail" placeholder="Email" ng-model="editemail" type="email" class="validate" disabled  required>
                                 </div>
                             </div>
 
                             <div class="row col s12 l6">
                                 <div class="input-field">
                                     <i class="material-icons prefix">phone</i>
-                                    <input name="telephone" placeholder="Contact Number" ng-model="editcontact"  type="text" class="validate" pattern="[0-9]{10}" required>
+                                    <input name="editcontact" placeholder="Contact Number" ng-model="editcontact"  type="text" class="validate" pattern="[0-9]{10}" required>
                                     
-                                    <span class="red-text" ng-show="signupForm.editcontact.$touched && signupForm.editcontact.$error.required">The Contact Number is required.</span>
-                                    <span class="red-text" ng-show="signupForm.editcontact.$touched && signupForm.editcontact.$error.pattern">Insert 10 Numbers.</span>
+                                    <span class="red-text" ng-show="editForm.editcontact.$touched && editForm.editcontact.$error.required">The Contact Number is required.</span>
+                                    <span class="red-text" ng-show="editForm.editcontact.$touched && editForm.editcontact.$error.pattern">Insert 10 Numbers.</span>
                                 </div>
                             </div>
                               
